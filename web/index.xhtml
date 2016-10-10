@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Sistema de Gerenciamento</title>
+    </h:head>
+    <h:body>
+        <h:link outcome="individuo_cad" value="Casdastro de Individuos" />
+
+        <h:form id="form">
+
+            <p:growl id="growl" showDetail="true" />
+
+            <pm:field>
+                <p:outputLabel for="filtro" value="Filtro:" /> 
+                <p:inputText id="filtro" value="#{individuoController.filtro}" required="false" label="Filtro" />
+            </pm:field>
+
+            <!--<p:commandButton id="btn" value="Save" actionListener="#{individuoController.filtra()}" update="growl" icon="check"/>-->
+            <p:commandButton id="btn" value="Filtrar" actionListener="#{individuoController.filtra()}" update="@form"/>
+
+            <p:dataGrid id="individuos" var="individuo" value="#{individuoController.individuos}" columns="1" paginator="true" rows="9">
+                <f:facet name="header">
+                    Lista de Indivíduos
+                </f:facet>
+
+                <p:panel header="#{individuo.nome}" style="text-align:center">
+                    <h:panelGrid columns="2" style="width:100%; text-align: center">
+                        <p:graphicImage library="images" name="#{individuo.foto}" height="480px"/> 
+                        
+                        <h:panelGrid columns="2" style="width:50%">
+                            <p:outputLabel for="descricao" value="Descrição" style="font-weight:bold" /> 
+                            <h:outputText id="descricao" value="#{individuo.descricao}" />
+
+                            <p:outputLabel for="caracteristicas" value="Características" style="font-weight:bold" /> 
+                            <p:dataList id="caracteristicas" value="#{individuo.caracteristicas}" var="car">
+                                <h:outputText value="#{car}" />
+                            </p:dataList>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </p:panel>
+
+            </p:dataGrid>
+
+        </h:form>
+    </h:body>
+</html>
+
